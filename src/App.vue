@@ -30,6 +30,15 @@ const getTarefasFinalizadas = () => {
   return estado.tarefas.filter(tarefa => tarefa.finalizada)
 }
 
+const cadastraTarefa = () => {
+  const novaTarefa = {
+    titulo: estado.tarefaTemp,
+    finalizada: false
+  }
+  estado.tarefas.push(novaTarefa)
+  estado.tarefaTemp = ''
+}
+
 const getTarefasFiltradas = () => {
   const { filtro } = estado
 
@@ -43,21 +52,14 @@ const getTarefasFiltradas = () => {
   }
 }
 
-const cadastraTarefa = () => {
-  const novaTarefa = {
-    titulo: estado.tarefaTemp,
-    finalizada: false
-  }
-  estado.tarefas.push(novaTarefa)
-  estado.tarefaTemp = ''
-}
 </script>
 
 <template>
   <div class="container">
-    <Cabecalho :tarefas-pendentes="getTarefasPendentes().lenght" />
-    <Formulario :trocas-filtro="evento => estado.filtro = evento.target.value" :tarefa-temp="estado.tarefaTemp" :edita-tarefa-temp="evento => estado.tarefaTemp = evento.target.value" :cadastra-tarefa="cadastraTarefa()"/>
-    <ListaDeTarefas :tarefas="getTarefasFiltradas()"/>
+    <Cabecalho :tarefas-pendentes="getTarefasPendentes().length"/>
+    <Formulario :trocar-filtro="evento => estado.filtro = evento.target.value" :tarefa-temp="estado.tarefaTemp" :edita-tarefa-temp="evento => estado.tarefaTemp = evento.target.value" :cadastra-tarefa="cadastraTarefa"/>
+    <ListaDeTarefas :tarefas="getTarefasFiltradas()" />
+    
   </div>
 </template>
 
